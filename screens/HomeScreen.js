@@ -1,208 +1,128 @@
+import { Calendar } from "react-native-calendars";
+import { View, Text } from "react-native";
 import React from "react";
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { WebBrowser } from "expo";
+import PopupDialog, { DialogTitle } from "react-native-popup-dialog";
 
-import { MonoText } from "../components/StyledText";
-
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null
-  };
-
+export default class calendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { selectedDay: "1", selectedEvent: "default evenxtt" };
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
+      <View style={{ paddingTop: 50, flex: 1 }}>
+        <PopupDialog
+          dialogTitle={<DialogTitle title="Contact Information" />}
+          ref={popupDialog => {
+            this.popupDialog = popupDialog;
+          }}
         >
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require("../assets/images/robot-dev.png")
-                  : require("../assets/images/robot-prod.png")
-              }
-              style={styles.welcomeImage}
-            />
+          <View>
+            <Text>Event: {this.state.selectedEvent}</Text>
+            <Text>Day: {this.state.selectedDay}</Text>
+            <Text>Time: 12pm</Text>
           </View>
+        </PopupDialog>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
+        <Calendar
+          // Initially visible month. Default = Date()
+          current={"2019-01-15"}
+          // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+          minDate={"2016-05-10"}
+          // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+          maxDate={"2020-05-30"}
+          // Handler which gets executed on day press. Default = undefined
+          onDayPress={day => {
+            console.log("selected day", day);
+            this.popupDialog.show();
+            var ev = "what";
+            if (day.day == 1) {
+              ev =
+                "Collecting Donations for the Arlington Welfare League of Arlington";
+            } else if (day.day == 2) {
+              ev = "No Events today";
+            } else if (day.day == 3) {
+              ev = "Monday Classes Meet";
+            } else if (day.day == 4) {
+              ev = "Internship Hours with Professor Pomeroy";
+            } else if (day.day == 5) {
+              ev = "When you Wish Upon a Fundraiser";
+            } else if (day.day == 6) {
+              ev = "No Events today";
+            } else if (day.day == 7) {
+              ev = "No Events today";
+            } else if (day.day == 8) {
+              ev = "Special Olympics";
+            } else if (day.day == 9) {
+              ev = "Community Potluck";
+            } else if (day.day == 10) {
+              ev = "Interfaith Forum";
+            } else if (day.day == 11) {
+              ev =
+                "Club 8 featuring Grammy Award Winner Rudy Currence and open mic";
+            } else if (day.day == 12) {
+              ev = "School of Business Meet & Greet (First Year Students)";
+            } else if (day.day == 13) {
+              ev = "Tech Challenge";
+            } else if (day.day == 14) {
+              ev = "Marymount 5K and Remembrance Day";
+            } else if (day.day == 15) {
+              ev =
+                "Collecting Donations for the Arlington Welfare League of Arlington";
+            } else if (day.day == 16) {
+              ev = "Cru Weekly Meetings";
+            } else if (day.day == 17) {
+              ev = "Mens Health- Know Your Nuts";
+            } else if (day.day == 18) {
+              ev = "No Events today";
+            } else if (day.day == 19) {
+              ev = "The Clothesline Project";
+            } else if (day.day == 20) {
+              ev = "No Events today";
+            } else if (day.day == 21) {
+              ev = "Marython";
+            } else if (day.day == 22) {
+              ev = "No Events today";
+            } else if (day.day == 23) {
+              ev = "No Events today";
+            } else if (day.day == 24) {
+              ev = "No Events today";
+            } else if (day.day == 25) {
+              ev = "Baseball vs Virginia Wesleyan";
+            } else if (day.day == 26) {
+              ev = "LGBTie Dye";
+            } else if (day.day == 27) {
+              ev = "Game Night";
+            } else if (day.day == 28) {
+              ev = "Mens and Womens Lacrosse CAC Tournament";
+            } else if (day.day == 29) {
+              ev = "No Events today";
+            } else if (day.day == 30) {
+              ev = "Cru Weekly Meetings";
+            }
 
-            <Text style={styles.getStartedText}>
-              Welcome to smart fitness app
-            </Text>
-
-            <View
-              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-            >
-              <MonoText style={styles.codeHighlightText}>
-                screens/HomeScreen.js
-              </MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>ATTEMPT TO HOT RELOAD!</Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity
-              onPress={this._handleHelpPress}
-              style={styles.helpLink}
-            >
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}
-          >
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
+            this.setState({
+              selectedDay: day.day,
+              selectedEvent: ev
+            });
+          }}
+          // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+          monthFormat={"MM yyyy"}
+          // Handler which gets executed when visible month changes in calendar. Default = undefined
+          onMonthChange={month => {
+            console.log("month changed", month);
+          }}
+          // Hide month navigation arrows. Default = false
+          hideArrows={false}
+          // Do not show days of other months in month page. Default = false
+          hideExtraDays={true}
+          // If hideArrows=false and hideExtraDays=false do not swich month when tapping on greyed out
+          // day from another month that is visible in calendar page. Default = false
+          disableMonthChange={true}
+          // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+          firstDay={1}
+        />
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    );
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    );
-  };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center"
-  },
-  contentContainer: {
-    paddingTop: 30
-  },
-  welcomeContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
-  },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50
-  },
-  homeScreenFilename: {
-    marginVertical: 7
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
-    textAlign: "center"
-  },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
-  }
-});

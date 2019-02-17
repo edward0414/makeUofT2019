@@ -17,17 +17,18 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-calendars": "^1.22.0",
     "react-native-popup-dialog": "^0.16.6",
+    "react-native-blur": "^3.2.2",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0",
     "babel-eslint": "^8.2.6",
+    "babel-preset-expo": "^5.0.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.10.0",
+    "jest-expo": "^32.0.0",
     "prettier": "^1.5.3"
   },
   "private": true

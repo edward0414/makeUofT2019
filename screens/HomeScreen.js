@@ -35,14 +35,22 @@ export default class HomeScreen extends React.Component {
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text style={styles.getStartedText}>HIIIII</Text>
+            <Text style={styles.getStartedText}>Welcome to smart fitness app</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
             </View>
 
             <Text style={styles.getStartedText}>
-              ATTEMPT TO HOT RELOAD!
+              
+              
+
+
+
+
+
+
+
             </Text>
           </View>
 

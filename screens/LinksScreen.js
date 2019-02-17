@@ -11,6 +11,7 @@ import Touchable from "react-native-platform-touchable";
 const Dimensions = require("Dimensions");
 import { BlurView } from "react-native-blur";
 let width = Dimensions.get("window").width;
+import { activites } from "../data/activites";
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
